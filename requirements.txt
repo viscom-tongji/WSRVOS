@@ -1,0 +1,15 @@
+torch
+torchvision
+torchaudio
+transformers
+timm
+ruamel.yaml
+einops
+tqdm
+pandas
+h5py
+scipy
+joblib
+pycocotools
+opencv-python
+av

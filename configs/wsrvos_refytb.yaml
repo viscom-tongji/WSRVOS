@@ -1,0 +1,51 @@
+output_dir: ./outputs/refytb
+
+dataset:
+  name: ref_youtube_vos
+  root: ../RVOS_datasets/refer_youtube_vos
+  augmentation_file: null
+
+data:
+  window_size: 4
+  frame_interval: 10
+  num_workers: 4
+  horizontal_flip: true
+  resize_and_crop: true
+  random_color: false
+  train_short_size: 360
+  train_max_size: 640
+  eval_short_size: 360
+  eval_max_size: 640
+
+model:
+  visual_backbone: video-swin-t
+  visual_pretrained: ./pretrained/pretrained_swin_transformer/swin_tiny_patch244_window877_kinetics400_1k.pth
+  text_encoder: ./pretrained/pretrained_roberta
+  freeze_visual_encoder: true
+  freeze_text_encoder: true
+  use_checkpoint: false
+  hidden_dim: 1024
+  num_heads: 8
+  num_positive: 6
+  num_negative: 48
+  selection_layers: [3, 6, 9, 12]
+  selection_topk_visual: 10
+  selection_topk_text: 10
+  mask_threshold: 0.4
+
+loss:
+  lambda_seg: 2.0
+  lambda_tmp: 1.0
+  ranking_epsilon: 0.1
+
+train:
+  batch_size: 1
+  epochs: 50
+  lr: 1.0e-4
+  weight_decay: 5.0e-4
+  seed: 42
+  amp: false
+
+eval:
+  batch_size: 1
+  split: test
